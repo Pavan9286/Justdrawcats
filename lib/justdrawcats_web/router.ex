@@ -18,7 +18,9 @@ defmodule JustdrawcatsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/playlists", PlaylistControlle
+    resources "/playlists", PlaylistController
+    # resources "/users", UserController
+    resources "/registration", UserController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.
