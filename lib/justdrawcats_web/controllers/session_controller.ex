@@ -17,7 +17,7 @@ defmodule JustdrawcatsWeb.SessionController do
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:info, "Signed in successfully.")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.admin_path(conn, :index))
 
       {:error, _} ->
         conn

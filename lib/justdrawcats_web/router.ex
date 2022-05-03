@@ -10,12 +10,16 @@ defmodule JustdrawcatsWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_auth do
+    plug JustdrawcatsWeb.Plugs.Auth
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", JustdrawcatsWeb do
-    pipe_through :browser
+    pipe_through :browser #use the default browser-stack
 
     get "/", PageController, :index
     resources "/playlists", PlaylistController
@@ -24,6 +28,12 @@ defmodule JustdrawcatsWeb.Router do
     get "/sign-in", SessionController, :new
     post "/sign-in", SessionController, :create
     delete "/sign-out", SessionController, :delete
+  end
+
+  scope "/admin", JustdrawcatsWeb.Admin do
+    pipe_through [:browser, :browser_auth]
+
+    get "/", AdminController, :index
   end
 
   # Other scopes may use custom stacks.
