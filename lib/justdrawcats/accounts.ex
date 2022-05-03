@@ -8,34 +8,8 @@ defmodule Justdrawcats.Accounts do
 
   alias Justdrawcats.Accounts.User
 
-  @doc """
-  Gets a single user.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
-
-  ## Examples
-
-      iex> get_user!(123)
-      %User{}
-
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
-
-  """
   def get_user!(id), do: Repo.get!(User, id)
 
-  @doc """
-  Creates a user.
-
-  ## Examples
-
-      iex> create_user(%{field: value})
-      {:ok, %User{}}
-
-      iex> create_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
@@ -53,5 +27,11 @@ defmodule Justdrawcats.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  def get_by_email(email) when is_nil(email), do: nil
+
+  def get_by_email(email) do
+    Repo.get_by(User, email: email)
   end
 end

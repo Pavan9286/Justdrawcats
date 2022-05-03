@@ -39,6 +39,8 @@ defmodule JustdrawcatsWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      import JustdrawcatsWeb.Helper.Auth, only: [current_user: 1]
     end
   end
 

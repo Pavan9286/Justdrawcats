@@ -1,7 +1,7 @@
 defmodule Justdrawcats.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Comeonin.Bcrypt
+  # alias Comeonin.Bcrypt
 
   schema "users" do
     field :email, :string
@@ -16,6 +16,6 @@ defmodule Justdrawcats.Accounts.User do
     |> cast(attrs, [:email, :encrypted_password])
     |> validate_required([:email, :encrypted_password])
     |> unique_constraint(:email)
-    |> update_change(:encrypted_password, &Bcrypt.hashpwsalt/1)
+    |> update_change(:encrypted_password, &Bcrypt.hash_pwd_salt/1)
   end
 end
